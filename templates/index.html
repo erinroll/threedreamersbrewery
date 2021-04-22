@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    
+<!--Jumbotron main image-->
+<div class="jumbotron jumbotron-fluid" style="background-image: url('static/images/three_women.jpg'); background-size: cover; background-position: top;">
+    <div class="container text-center">
+        <h1 class="display-4">Three Women, Big Dreams</h1>
+        <p class="lead">Brewing craft beer in the Illawarra.</p>
+        <a href="#our-story" class="btn btn-info btn-lg" role="button" id="main-button" style="margin:10px;">LEARN MORE ABOUT US</a>
+        <a href="#our-beer" class="btn btn-info btn-lg" role="button" id="main-button" style="margin:10px;">CHECK OUT OUR BEER RANGE</a>
+    </div>
+</div>
+
+
+<!--OUR STORY SECTION-->
+<div class="container" id="our-story-container"><span id="our-story"></span>
+    <div class="row justify-content-md-center">
+        
+        <!--Column - One)-->  
+        <div class="col-md">
+            <img src="static/images/our_story.jpg" width="100%" >
+        </div>
+
+        <!--Column - Two)-->  
+        <div class="col-md">
+            <h3 class="product-page-heading">Our Story</h3>
+            <p>Wollongong is a changing city. Built on the blue collars of smelting and heavy manufacturing, those industries that bought middle class prosperity are in decline, though hardly dead yet; you can still catch a whiff of them each time the open coal carriages roll through town or the smoke stacks of the steelworks begin to wheeze.</p>
+            <p>But they feel at odds with a newer energy helping power the local economy, one where health is the biggest drawcard and education not far behind – the University is of high repute and it brings youth, vibrancy, multiculturalism and bright minds. If the place is not yet outright progressive, the sensation is bubbling away.</p>
+            <p>Its attractiveness is not harmed by the region itself being quite beautiful, a thin sliver of civilisation hemmed in by the Tasman Sea to the east and a towering escarpment in the west that contains everything within; golden sand beaches, fertile soil for a small scale agrarian economy, lush bush to wander in and blue sky in which to dive.</p>
+            <p>In an industry where authenticity is becoming increasingly important, the Five Barrel way feels increasingly like the right way.</p>
+        </div>
+    </div>
+</div>
+
+
+<!--OUR BEERS SECTION -->
+<!--Jumbotron large image-->
+<section class="jumbotron jumbotron-fluidtext-center" style="background-image: url('static/images/our_beer.jpg'); background-size: cover; background-position: top;" id="our-beer">
+    <div class="container text-center">
+        <h1 class="display-4">OUR BEERS</h1>
+    </div>
+</section>
+  
+  <!--Cards for products -->
+  <div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+    
+            <!--Get products categorised as beer -->
+            {% for product in products%}
+                {% if product.category_id == 1%}
+
+            
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" src="{{url_for('static', filename='images/'+product.image)}}" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">{{product.name}}</h4>
+                        <hr>
+                        <div class="row" style="margin-bottom:-15px;">
+                        <div class="text-muted col">{{product.size}}</div>
+                        <div class="text-muted col"> <p style="float:right;">{{ "$%.2f"|format(product.price) }}</p></div>
+                        </div>
+                        <hr>
+                        <p class="card-text" style="margin-bottom:50px;">{{product.description}}</p>
+                        
+                        <div class="d-flex justify-content-between">
+                        <form action="{{url_for('main.order')}}" method="post" class="form" role="form" >
+                        <input type="hidden" id="product_id" name="product_id" value="{{product.id}}">
+                        <input class="btn btn-outline-secondary btn-sml"  type="submit" value="Add to cart"> 
+                        </form>
+                        
+                        <a href="{{ url_for('main.product_beer', productid = product.id)}}" class="btn btn-secondary btn-sml" style="float:right;"> Product info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                {% endif %}
+            {% endfor %}
+    </div>
+    </div>
+</div>
+
+<!--OUR MERCHANDISE SECTION -->
+<!--Jumbotron large image-->
+<section class="jumbotron jumbotron-fluidtext-center" style="background-image: url('static/images/our_merchandise.jpg'); background-size: cover; background-position: top;" id="our-merchandise">
+    <div class="container text-center">
+        <h1 class="display-4">OUR MERCHANDISE</h1>
+    </div>
+</section>
+  
+<!--Cards for products -->
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+
+            <!--Get products categorised as merchandise -->
+            {% for product in products%}
+                {% if product.category_id == 2%}
+
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" src="{{url_for('static', filename='images/'+product.image)}}" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">{{product.name}}</h4>
+                        <hr>
+                        <div class="row" style="margin-bottom:-15px;">
+                        <div class="text-muted col">{{product.size}}</div>
+                        <div class="text-muted col"> <p style="float:right;">{{ "$%.2f"|format(product.price) }}</p></div>
+                        </div>
+                        <hr>
+                        <p class="card-text" style="margin-bottom:50px;">{{product.description}}</p>
+                        
+                        <div class="d-flex justify-content-between">
+                        <form action="{{url_for('main.order')}}" method="post" class="form" role="form" >
+                        <input type="hidden" id="product_id" name="product_id" value="{{product.id}}">
+                        <input class="btn btn-outline-secondary btn-sml"  type="submit" value="Add to cart"> 
+                        </form>
+                        
+                        <a href="{{ url_for('main.product_merch', productid = product.id)}}" class="btn btn-secondary btn-sml" style="float:right;"> Product info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                {% endif %}
+            {% endfor %}
+           
+        </div>
+    </div>
+</div>
+
+<!--CONTACT US SECTION -->
+<!--Jumbotron large image-->
+<section class="jumbotron jumbotron-fluid text-center" style="background-image: url('static/images/contact_us.jpg'); background-size: cover; background-position: top;" id="contact-us">
+    <div class="container text-center">
+        <h1 class="display-4">CONTACT US</h1>
+    </div>
+</section>
+
+<div class="container" id="contact-us-container">
+    
+    <!--Row for details and form-->
+    <div class="row justify-content-md-center">
+        
+        <!--column - one-->
+        <div class="col col-lg-3">
+            <p>Wollongong, NSW</p>
+            <p>Phone: xxxx xxx xxx</p>
+            <p>Email: xxxxx@gmail.com</p>
+        </div>
+        
+        <!--column - two-->
+        <div class="col col-lg-6">
+        <form>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <textarea class="form-control" id="name" rows="1"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="Email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="Query">Query</label>
+                <textarea class="form-control" id="query" rows="3"></textarea>
+            </div>
+            
+            <button type="button" class="btn btn-secondary btn-sml btn-block" id="addToCart_btn">SUBMIT</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+<!-- Import WT Forms -->
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block main %}
+
+<section>
+
+  <!--Headline for checkout-->
+  <div class="py-5 text-center col-md-8 container-lg">
+    <h2>Checkout </h2>
+    <p>Thank you for your order. Complete the form below to finish your purchase.</p>
+  </div>
+
+<!--Sidebar to display order summary on checkout-->
+<!--Sidebar displays on right on desktop by on top on mobile -->
+  <div class="row container-lg mx-auto">
+    <div class="col-md-4 order-md-2 mb-4">
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Your order details</span>
+      </h4>
+      
+      <ul class="list-group mb-3">
+
+        <!-- Show products in cart session -->
+        {% for product in order.products %}
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+          <div>
+            <h6 class="my-0">{{product.name}}</h6>
+          </div>
+          <span class="text-muted">{{ "$%.2f"|format(product.price) }}</span>
+        </li>
+       {% endfor %}
+
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total</span>
+          <strong>{{ "$%.2f"|format(order.totalcost) }}</strong>
+        </li>
+      </ul>
+    </div>
+
+    <!--Checkout form - made using WTFoms but instead of implementing the entire form, used the individual items so it could be styled -->
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3 text-muted">Your details</h4>
+        <form action="" method="post" class="form" role="form" style ="margin-bottom:100px;" >
+        
+        {{ form.csrf_token() }}
+
+          <!--First and last name slots-->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ wtf.form_field(form.firstName)}}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ wtf.form_field(form.surname)}}
+            </div>
+          </div>
+
+           <!--Email and Phone slots-->
+          <div class="row">
+
+            <div class="col-md-6 mb-3">
+              {{ wtf.form_field(form.email)}}
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              {{ wtf.form_field(form.phone)}}
+            </div>
+          </div>
+
+          <!--Street address and suburb slots-->
+          <div class="row">
+          <div class="col-md-9 mb-3">
+              {{ wtf.form_field(form.streetAddress)}}
+          </div>
+            <div class="col-md-3 mb-3">
+              {{ wtf.form_field(form.suburb)}}
+          </div>
+          </div>
+
+          <!--State, postcode and country slots-->
+          <div class="row">
+            <div class="col-md-5 mb-3">
+              {{ wtf.form_field(form.state)}}
+            </div>
+            <div class="col-md-4 mb-3">
+              {{ wtf.form_field(form.postcode)}}
+            </div>
+            <div class="col-md-3 mb-3">
+              {{ wtf.form_field(form.country)}}
+            </div>
+          </div>
+
+
+          <!--Payment section of the form - payment is not validated - only used as placeholder to show design -->
+          <h4 class="mb-3" style="margin-top:30px;">Payment</h4>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ wtf.form_field(form.ccName)}}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ wtf.form_field(form.ccNumber)}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              {{ wtf.form_field(form.ccExpDate)}}
+            </div>
+            <div class="col-md-3 mb-3">
+              {{ wtf.form_field(form.CCV)}}
+            </div>
+          </div>
+          <hr class="mb-4">
+
+          <!-- Button to submit and send to database -->
+          <button class="btn btn-secondary btn-sml btn-block" type="submit" style="color:white;">{{ wtf.form_field(form.submit)}}</button>
+        </form>
+      </div>
+
+</section>
+
+{% endblock %}
+

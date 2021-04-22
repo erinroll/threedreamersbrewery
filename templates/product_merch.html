@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block main %}
+   
+ <div class="container" style="margin-bottom:100px;">
+    <!--Show selected product -->
+    {% for product in products%}
+        {% if product.id == productid%}
+
+    <!--Breadcrumb to track back-->
+    <nav aria-label="breadcrumb" id="product-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/#our-merchandise">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
+        </ol>
+    </nav>
+        
+    <!--Row - 2 columns for content-->  
+    <div class="row justify-content-md-center">
+          
+        <!--Column - Image)-->  
+        <div class="col-md">
+            <img src="{{url_for('static', filename='images/'+product.image)}}" width="100%" >
+        </div>
+
+        <!--Column - Product details)-->  
+        <div class="col-md">
+            <h3 class="product-page-heading" style="margin-bottom:30px;">{{product.name}}</h3>
+            <hr>
+            <div class="row" style="margin-bottom:-15px;">
+                <div class="text-muted col">{{product.size}}</div>
+                <div class="text-muted col"> <p style="float:right;">{{ "$%.2f"|format(product.price) }}</p></div>
+            </div>
+            <hr>
+     
+            <p style="padding-right:60px; margin-top: 10px; margin-bottom:50px;">{{product.description}}</p>
+            
+            <!-- Add to cart button -->  
+            <form action="{{url_for('main.order')}}" method="post" class="form" role="form" >
+                <input type="hidden" id="product_id" name="product_id" value="{{product.id}}">
+                <input class="btn btn-secondary btn-sml btn-block" id="addToCart_btn" type="submit" value="Add to cart" >
+            </form>
+        </div>
+             
+    </div>
+</div>
+</div>
+</div>
+
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

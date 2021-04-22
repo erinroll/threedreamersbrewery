@@ -1,0 +1,140 @@
+/*! Added font for main headlines on index*/
+@font-face {
+    font-family: 'sundownersmedium';
+    src: url('../font/sundowners-webfont.eot');
+    src: url('../font/sundowners-webfont.woff2') format('woff2'),
+         url('../font/sundowners-webfont.woff') format('woff'),
+         url('../font/sundowners.otf') format("opentype"),
+         url('../font/sundowners.ttf') format("truetype"),
+         url('../font/sundowners-webfont.svg#sundownersmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*! Change main for to Barlow */
+:root {
+    --font-family-sans-serif: 'Barlow', sans-serif;
+}
+
+body {
+    font-family: 'Barlow', sans-serif;
+}
+
+/*! Dropshadow on Navbar */
+.navbar {
+    box-shadow: 0 0 10px  lightgray;
+    margin-bottom: 0px;
+}
+
+/*! Index pages changes */
+main {
+    padding-top: 0px;
+}
+
+hr {
+    margin-top: 0px;
+    margin-bottom:0px;
+}
+
+.display-4 {
+    font-family: 'sundownersmedium';
+    font-size: 5em;
+    color:white;
+    text-align: center;
+    text-shadow: 0 0 15px black;
+    margin-bottom:0px;
+}
+
+.btn-outline-secondary {
+    background-color: white;
+}
+
+.lead {
+    color: white;
+    font-weight: 400;
+    font-size: 1.75em;
+    text-align: center;
+    text-shadow: 0 0 10px black;
+    margin-top: 0px;
+}
+
+/*! Push our story container down slightly */
+#our-story-container{
+    margin-top: 25px;
+    margin-bottom:25px;
+}
+
+/*! Anchor link space so they don't fall under the navigation */
+.container span {
+    position:absolute; 
+    top:-200px;
+}
+
+/*! spacing on jumbotons*/
+.jumbotron {
+    margin:0px;
+    padding-top: 25rem;
+}
+
+#our-beer {
+    padding-top: 10rem;
+}
+
+#our-merchandise {
+    padding-top: 10rem;
+}
+
+#contact-us {
+    padding-top: 10rem;
+}
+
+#contact-us-container {
+    margin:25px;
+}
+
+/*! product detail changes*/
+#addToCart_btn {
+    margin-top:25px;
+}
+
+#tastingNotes {
+    margin-top:50px;
+    margin-bottom:100px;
+}
+
+.breadcrumb {
+    margin-top:50px;
+    background-color: white;;
+}
+
+.price {
+    font-weight:600;
+    color: gray;
+}
+
+#size-product label{
+    font-weight:600;
+    color: gray;
+    margin-top:5px;
+    margin-bottom:0px;
+}
+
+#quantity-product label{
+    font-weight:600;
+    color: gray;
+    margin-top:5px;
+    margin-bottom:0px;
+}
+
+.product-page-heading {
+    margin-top: 10px;
+}
+
+.container #sidebar {
+   position:absolute; 
+   top:-300px;
+}
+
+
+
+

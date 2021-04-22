@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<!-- Displays Your Cart Header -->
+<div class="py-5 text-center col-md-8 container-lg">
+  <h2>Your Cart </h2>
+  <p>Your items for purchase.</p>
+</div>
+
+
+<!-- Shopping cart begins -->
+<div class="row container-lg mx-auto">
+  <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">
+        <span class="text-muted">Your items</span>
+      </h4>
+        
+      <!-- Shopping cart table starts -->
+      <div class="table-responsive" >
+          <table class="table table-bordered rounded mb-3">
+
+            <!-- Shopping cart headings -->
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center;">Product</th>
+                <th scope="col" style="text-align: center;">Size</th>
+                <th scope="col" style="text-align: center;">Price</th>
+                <th scope="col" style="text-align: center;">Remove</th>
+              </tr>
+            </thead>
+              
+            <!-- Shopping cart body -->
+            <tbody>
+
+              <!-- Show products in cart session -->
+              {% for product in order.products %}
+              <tr>
+                <th scope="row" >
+                  <div class="p-2">
+                    <img src="{{url_for('static', filename='images/'+product.image)}}" alt="" width="70">
+                    <div class="ml-3 d-inline-block align-middle">
+                      <p >{{product.name}}</p>
+                    </div>
+                  </div>
+                </th>
+                  <td class="align-middle" style="text-align: center;"> <p> {{product.size}}</td>
+                  <td class="align-middle" style="text-align: center;"> <p> {{ "$%.2f"|format(product.price) }}</td>
+                  
+                  <!-- Remove product bottun - stylised as a trash can -->
+                  <td class="align-middle" style="text-align: center;"> <p>   
+                    <form method="POST" action="{{url_for('main.deleteorderitem')}}">
+                      <input type="hidden" id="id" name="id" value="{{product.id}}">
+                        <button type="submit" class="btn btn-secondary btn-sml" style="margin-top:-25px;"><i class="far fa-trash-alt"></i></button>      
+                    </form> 
+                  </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+          </table>
+
+          <!-- Empty cart button -->
+          <div>
+            <a href="{{ url_for('main.deleteorder') }}" class="btn btn-secondary btn-sml btn-block col-lg-4" style="margin-bottom:100px;">Empty Cart</a>
+          </div>
+        </div>
+      </div>   
+
+
+<!-- Side bar for cost totals-->
+      <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Totals</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Subtotal</h6>
+            </div>
+            <span class="text-muted">{{ "$%.2f"|format(subtotalcost) }}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">GST</h6>
+            </div>
+            <span class="text-muted">{{ "$%.2f"|format(totalGst) }}</span>
+          </li>          
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total</span>
+            <strong>{{ "$%.2f"|format(totalcost) }}</strong>
+          </li>
+        </ul>
+        
+        <!-- Buttom to go to checkout page -->
+        <a href="{{ url_for('main.checkout') }}" class="btn btn-secondary btn-sml btn-block" style="margin-bottom: 100px;">Proceed to checkout</a>
+       </div>
+</div>
+
+{% endblock %}
